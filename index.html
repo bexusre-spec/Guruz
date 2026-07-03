@@ -209,7 +209,7 @@ a.link{color:#fff;text-decoration:underline;word-break:break-all}
         </div>
       </div>
       <div id="workSharesArea" style="display:none;">
-        <p style="font-size:12px;opacity:0.9;">Choisissez un compte share non masqué, puis validez les partages demandés.</p>
+        <p style="font-size:12px;opacity:0.9;">Choisissez un compte share non masqué, puis validez les partages demandés. Les partages sont maintenant mis en file d'attente.</p>
         <button class="small-btn" onclick="loadShareAccountsForWork()">Charger comptes share</button>
         <div id="shareAccountsForWork" class="accounts-list"></div>
         <div id="currentShareTaskArea" style="margin-top:8px; display:none;">
@@ -217,7 +217,7 @@ a.link{color:#fff;text-decoration:underline;word-break:break-all}
           <div id="currentShareTaskInfo" style="font-size:13px;"></div>
           <div class="field"><label>Lien du post que vous avez partagé (vérification)</label><input type="text" id="shareVerificationLink" placeholder="https://www.facebook.com/..." /></div>
           <div style="display:flex;gap:8px;margin-top:6px;">
-            <button class="secondary-btn" style="flex:1;" onclick="verifyCurrentShareTask()">VERIFY</button>
+            <button class="secondary-btn" style="flex:1;" onclick="verifyCurrentShareTask()">VERIFY (file d'attente)</button>
             <button class="secondary-btn" style="flex:1;" onclick="skipShareTask()">SKIP</button>
           </div>
           <div id="shareWorkerMessage" class="message"></div>
@@ -383,7 +383,7 @@ a.link{color:#fff;text-decoration:underline;word-break:break-all}
       <div id="logsList" class="tasks-log" style="max-height:350px;"></div>
       <div id="logsMsg" class="message"></div>
     </div>
-    <!-- Admin sections -->
+    <!-- Admin sections (identiques à la version précédente, elles sont toutes là) -->
     <div id="sectionAdminCredit" class="card" style="display:none;">
       <h2>Admin: Créditer Coins/Ar</h2>
       <div class="field"><label>Email</label><input type="email" id="admEmail" /></div>
@@ -873,12 +873,12 @@ async function verifyCurrentShareTask() {
   if (!selectedShareAccountId || !currentShareTask?.task_id) return;
   const verificationLink = document.getElementById("shareVerificationLink").value.trim();
   if (!verificationLink) return setMessage("shareWorkerMessage", "Entrez le lien du post partagé.", "error");
-  showLoader("shareWorkerMessage", "Vérification...");
+  showLoader("shareWorkerMessage", "Mise en file d'attente...");
   try {
     const data = await api("/worker/share_verify_task","POST",{ account_id: selectedShareAccountId, task_id: currentShareTask.task_id, verification_link: verificationLink });
-    setMessage("shareWorkerMessage", data.message || "OK", data.success ? "success" : "error");
-    await updateMe(); loadGlobalStats();
-    if (data.success) { document.getElementById("shareVerificationLink").value = ""; await loadNextShareTask(); }
+    setMessage("shareWorkerMessage", data.message || "File d'attente", "success");
+    document.getElementById("shareVerificationLink").value = "";
+    await loadNextShareTask();
   } catch(e){ setMessage("shareWorkerMessage", sanitizeHTML(e.message), "error"); }
 }
 async function skipShareTask() {
