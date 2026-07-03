@@ -375,7 +375,7 @@ a.link{color:#fff;text-decoration:underline;word-break:break-all}
       <div id="logsList" class="tasks-log" style="max-height:350px;"></div>
       <div id="logsMsg" class="message"></div>
     </div>
-    <!-- Admin sections (conteneurs vides, seront remplis dynamiquement via toggleAdminUI) -->
+    <!-- Admin sections (conteneurs vides, seront remplis dynamiquement) -->
     <div id="sectionAdminCredit" class="card" style="display:none;"></div>
     <div id="sectionAdminDeduct" class="card" style="display:none;"></div>
     <div id="sectionAdminBan" class="card" style="display:none;"></div>
@@ -401,13 +401,6 @@ a.link{color:#fff;text-decoration:underline;word-break:break-all}
 </div>
 </div>
 <script>
-/*
- * HASH DU SCRIPT INLINE POUR CSP :
- * Calculer le hash SHA-256 du contenu de cette balise <script> (sans la balise elle-même),
- * puis le mettre dans la CSP du backend à la place du placeholder FRONTEND_SCRIPT_HASH.
- * Exemple de commande pour obtenir le hash :
- *   python -c "import hashlib, base64; print('sha256-' + base64.b64encode(hashlib.sha256(open('index.html','rb').read().split(b'<script>')[1].split(b'</script>')[0]).digest()).decode())"
- */
 const API_URL = "https://web-production-0a511.up.railway.app";
 const BASE_URL = window.location.origin + "/Takers/";
 
@@ -514,7 +507,6 @@ function toggleAdminUI() {
   document.getElementById("hamburgerWrap").style.display = "block";
   const adminOnly = document.getElementById("adminOnlyMenu");
   if (auth && auth.is_admin) {
-    // Construire dynamiquement le menu admin
     adminOnly.innerHTML = `
       <button class="small-btn" onclick="showAdminCredit()">Créditer Coins/Ar</button>
       <button class="small-btn" onclick="showAdminDeduct()">Déduire Coins/Ar</button>
