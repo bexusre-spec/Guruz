@@ -81,15 +81,7 @@ a.link{color:#fff;text-decoration:underline;word-break:break-all}
   <button class="small-btn" onclick="showVerifyAccount()">Vérifier compte</button>
   <button class="small-btn" onclick="showVipCodes()">Code VIP</button>
   <button class="small-btn" onclick="showManageAccounts()">Hide/Unhide comptes</button>
-  <div id="adminOnlyMenu" style="display:none; border-top:1px solid rgba(255,255,255,.18); padding-top:6px;">
-    <button class="small-btn" onclick="showAdminCredit()">Créditer Coins/Ar</button>
-    <button class="small-btn" onclick="showAdminDeduct()">Déduire Coins/Ar</button>
-    <button class="small-btn" onclick="showAdminBan()">Ban / Unban / Suspendre</button>
-    <button class="small-btn" onclick="showAdminUsers()">Liste utilisateurs</button>
-    <button class="small-btn" onclick="showAdminDeposits()">Approve Deposit</button>
-    <button class="small-btn" onclick="showAdminWithdraws()">Approve Withdraw</button>
-    <button class="small-btn" onclick="showAdminVerifyAccounts()">Verify Accounts</button>
-  </div>
+  <div id="adminOnlyMenu" style="display:none; border-top:1px solid rgba(255,255,255,.18); padding-top:6px;"></div>
   <button class="small-btn" onclick="logoutUser()">Déconnexion</button>
 </div>
 
@@ -138,9 +130,9 @@ a.link{color:#fff;text-decoration:underline;word-break:break-all}
     <div>👥 Comptes: <strong id="globalAccounts">0</strong></div>
     <div>
       <button class="small-btn" onclick="location.reload()" style="margin-right:8px;">🔄</button>
-      <a href="https://www.facebook.com/myalarryy" target="_blank">Support</a>
-      <a href="https://www.facebook.com/myalarryy" target="_blank">Chat</a>
-      <a href="https://www.facebook.com/myalarryy" target="_blank">Tutoriel</a>
+      <a href="https://www.facebook.com/myalarryy" target="_blank" rel="noopener noreferrer">Support</a>
+      <a href="https://www.facebook.com/myalarryy" target="_blank" rel="noopener noreferrer">Chat</a>
+      <a href="https://www.facebook.com/myalarryy" target="_blank" rel="noopener noreferrer">Tutoriel</a>
     </div>
   </div>
   <div class="top-bar">
@@ -383,77 +375,14 @@ a.link{color:#fff;text-decoration:underline;word-break:break-all}
       <div id="logsList" class="tasks-log" style="max-height:350px;"></div>
       <div id="logsMsg" class="message"></div>
     </div>
-    <!-- Admin sections (identiques à la version précédente, elles sont toutes là) -->
-    <div id="sectionAdminCredit" class="card" style="display:none;">
-      <h2>Admin: Créditer Coins/Ar</h2>
-      <div class="field"><label>Email</label><input type="email" id="admEmail" /></div>
-      <div class="field"><label>Coins</label><input type="number" id="admCoins" value="0" /></div>
-      <div class="field"><label>Ar</label><input type="number" id="admAr" value="0" /></div>
-      <button class="submit-btn" onclick="adminCredit()">Créditer</button>
-      <div id="admMessage" class="message"></div>
-    </div>
-    <div id="sectionAdminDeduct" class="card" style="display:none;">
-      <h2>Admin: Déduire Coins/Ar</h2>
-      <div class="field"><label>Email</label><input type="email" id="deductEmail" /></div>
-      <div class="field"><label>Coins</label><input type="number" id="deductCoins" value="0" /></div>
-      <div class="field"><label>Ar</label><input type="number" id="deductAr" value="0" /></div>
-      <button class="submit-btn" onclick="adminDeduct()">Déduire</button>
-      <div id="deductMessage" class="message"></div>
-    </div>
-    <div id="sectionAdminBan" class="card" style="display:none;">
-      <h2>Admin: Ban / Unban / Suspendre 10h</h2>
-      <div class="field"><label>Email</label><input type="email" id="banEmail" /></div>
-      <div class="field"><label>Action</label><select id="banAction"><option value="ban">Ban</option><option value="unban">Unban</option><option value="suspend">Suspendre 10h</option></select></div>
-      <button class="submit-btn" onclick="adminBan()">Appliquer</button>
-      <div id="banMessage" class="message"></div>
-    </div>
-    <div id="sectionAdminUsers" class="card" style="display:none;">
-      <h2>Admin: Liste utilisateurs</h2>
-      <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px;">
-        <input type="text" id="userSearch" placeholder="Recherche par email" style="flex:1;padding:8px;border-radius:8px;background:rgba(255,255,255,.9);" />
-        <button class="small-btn" onclick="usersPage=0;loadAdminUsers()">Chercher</button>
-      </div>
-      <div style="display:flex;gap:8px;align-items:center;margin-bottom:4px;">
-        <button class="small-btn" onclick="if(usersPage>0){usersPage--;loadAdminUsers()}">Prev</button>
-        <button class="small-btn" onclick="usersPage++;loadAdminUsers()">Next</button>
-        <span style="font-size:12px;">Page: <span id="usersPageLabel">0</span></span>
-      </div>
-      <div id="adminUsersList" class="tasks-log"></div>
-      <div id="adminUsersMsg" class="message"></div>
-    </div>
-    <div id="sectionAdminDeposits" class="card" style="display:none;">
-      <h2>Admin: Deposits pending</h2>
-      <div style="display:flex;gap:8px;align-items:center;">
-        <button class="small-btn" onclick="adminDepPage=0; loadAdminDeposits()">Refresh</button>
-        <button class="small-btn" onclick="if(adminDepPage>0){adminDepPage--;loadAdminDeposits()}">Prev</button>
-        <button class="small-btn" onclick="adminDepPage++;loadAdminDeposits()">Next</button>
-        <span>Page: <span id="adminDepPageLabel">0</span></span>
-      </div>
-      <div id="adminDepositsList" class="tasks-log"></div>
-      <div id="adminDepositsMsg" class="message"></div>
-    </div>
-    <div id="sectionAdminWithdraws" class="card" style="display:none;">
-      <h2>Admin: Withdraws pending</h2>
-      <div style="display:flex;gap:8px;align-items:center;">
-        <button class="small-btn" onclick="adminWdPage=0; loadAdminWithdraws()">Refresh</button>
-        <button class="small-btn" onclick="if(adminWdPage>0){adminWdPage--;loadAdminWithdraws()}">Prev</button>
-        <button class="small-btn" onclick="adminWdPage++;loadAdminWithdraws()">Next</button>
-        <span>Page: <span id="adminWdPageLabel">0</span></span>
-      </div>
-      <div id="adminWithdrawsList" class="tasks-log"></div>
-      <div id="adminWithdrawsMsg" class="message"></div>
-    </div>
-    <div id="sectionAdminVerifyAccounts" class="card" style="display:none;">
-      <h2>Admin: Verify Accounts</h2>
-      <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px;">
-        <button class="small-btn" onclick="adminVerifyPage=0; loadAdminVerifyAccounts()">Refresh</button>
-        <button class="small-btn" onclick="if(adminVerifyPage>0){adminVerifyPage--;loadAdminVerifyAccounts()}">Prev</button>
-        <button class="small-btn" onclick="adminVerifyPage++;loadAdminVerifyAccounts()">Next</button>
-        <span style="font-size:12px;">Page: <span id="adminVerifyPageLabel">0</span></span>
-      </div>
-      <div id="adminVerifyList" class="tasks-log"></div>
-      <div id="adminVerifyMsg" class="message"></div>
-    </div>
+    <!-- Admin sections (conteneurs vides, seront remplis dynamiquement via toggleAdminUI) -->
+    <div id="sectionAdminCredit" class="card" style="display:none;"></div>
+    <div id="sectionAdminDeduct" class="card" style="display:none;"></div>
+    <div id="sectionAdminBan" class="card" style="display:none;"></div>
+    <div id="sectionAdminUsers" class="card" style="display:none;"></div>
+    <div id="sectionAdminDeposits" class="card" style="display:none;"></div>
+    <div id="sectionAdminWithdraws" class="card" style="display:none;"></div>
+    <div id="sectionAdminVerifyAccounts" class="card" style="display:none;"></div>
     <!-- Histories -->
     <div id="sectionDepositHistory" class="card" style="display:none;">
       <h2>Deposit history</h2>
@@ -472,6 +401,13 @@ a.link{color:#fff;text-decoration:underline;word-break:break-all}
 </div>
 </div>
 <script>
+/*
+ * HASH DU SCRIPT INLINE POUR CSP :
+ * Calculer le hash SHA-256 du contenu de cette balise <script> (sans la balise elle-même),
+ * puis le mettre dans la CSP du backend à la place du placeholder FRONTEND_SCRIPT_HASH.
+ * Exemple de commande pour obtenir le hash :
+ *   python -c "import hashlib, base64; print('sha256-' + base64.b64encode(hashlib.sha256(open('index.html','rb').read().split(b'<script>')[1].split(b'</script>')[0]).digest()).decode())"
+ */
 const API_URL = "https://web-production-0a511.up.railway.app";
 const BASE_URL = window.location.origin + "/Takers/";
 
@@ -576,7 +512,23 @@ function showDashboard() {
 }
 function toggleAdminUI() {
   document.getElementById("hamburgerWrap").style.display = "block";
-  document.getElementById("adminOnlyMenu").style.display = (auth && auth.is_admin) ? "block" : "none";
+  const adminOnly = document.getElementById("adminOnlyMenu");
+  if (auth && auth.is_admin) {
+    // Construire dynamiquement le menu admin
+    adminOnly.innerHTML = `
+      <button class="small-btn" onclick="showAdminCredit()">Créditer Coins/Ar</button>
+      <button class="small-btn" onclick="showAdminDeduct()">Déduire Coins/Ar</button>
+      <button class="small-btn" onclick="showAdminBan()">Ban / Unban / Suspendre</button>
+      <button class="small-btn" onclick="showAdminUsers()">Liste utilisateurs</button>
+      <button class="small-btn" onclick="showAdminDeposits()">Approve Deposit</button>
+      <button class="small-btn" onclick="showAdminWithdraws()">Approve Withdraw</button>
+      <button class="small-btn" onclick="showAdminVerifyAccounts()">Verify Accounts</button>
+    `;
+    adminOnly.style.display = "block";
+  } else {
+    adminOnly.innerHTML = "";
+    adminOnly.style.display = "none";
+  }
 }
 function toggleAdminMenu() { document.getElementById("adminMenu").classList.toggle("show"); }
 function hideAdminMenu() { document.getElementById("adminMenu").classList.remove("show"); }
@@ -592,22 +544,119 @@ function showSection(name) {
   allSections.forEach(s => { const el = document.getElementById("section" + s); if (el) el.style.display = "none"; });
   const target = document.getElementById("section" + name.charAt(0).toUpperCase() + name.slice(1));
   if (target) target.style.display = "block";
+  // Charger le contenu des sections admin si nécessaire
+  if (name === "adminCredit") { fillAdminCredit(); }
+  if (name === "adminDeduct") { fillAdminDeduct(); }
+  if (name === "adminBan") { fillAdminBan(); }
+  if (name === "adminUsers") { fillAdminUsers(); loadAdminUsers(); }
+  if (name === "adminDeposits") { fillAdminDeposits(); loadAdminDeposits(); }
+  if (name === "adminWithdraws") { fillAdminWithdraws(); loadAdminWithdraws(); }
+  if (name === "adminVerifyAccounts") { fillAdminVerifyAccounts(); loadAdminVerifyAccounts(); }
   if (name === "work") { loadAccountsForWork(); switchWorkTab('tasks'); }
   if (name === "orderStatus") loadOrders();
   if (name === "depositHistory") loadDepositHistory();
   if (name === "withdrawHistory") loadWithdrawHistory();
-  if (name === "adminDeposits") loadAdminDeposits();
-  if (name === "adminWithdraws") loadAdminWithdraws();
   if (name === "referral") { updateReferralLink(); loadReferralCount(); }
   if (name === "deposit") { document.getElementById("depositStep1").style.display = "block"; document.getElementById("depositStep2").style.display = "none"; updateDepositEstimate(); }
-  if (name === "adminUsers") loadAdminUsers();
   if (name === "verifyAccount") loadVerifyAccounts();
-  if (name === "adminVerifyAccounts") loadAdminVerifyAccounts();
   if (name === "vip") { document.getElementById("vipActivateArea").style.display = "none"; }
   if (name === "vipCodes") loadVipCodes();
   if (name === "getCommentShare") switchCommentShareTab('comment');
   if (name === "manageAccounts") { switchManageTab('task'); loadManageAccounts(); }
   if (name === "logs") loadLogs();
+}
+
+// Remplissage dynamique des sections admin
+function fillAdminCredit() {
+  const s = document.getElementById("sectionAdminCredit");
+  if (s && s.innerHTML === "") {
+    s.innerHTML = `<h2>Admin: Créditer Coins/Ar</h2>
+      <div class="field"><label>Email</label><input type="email" id="admEmail" /></div>
+      <div class="field"><label>Coins</label><input type="number" id="admCoins" value="0" /></div>
+      <div class="field"><label>Ar</label><input type="number" id="admAr" value="0" /></div>
+      <button class="submit-btn" onclick="adminCredit()">Créditer</button>
+      <div id="admMessage" class="message"></div>`;
+  }
+}
+function fillAdminDeduct() {
+  const s = document.getElementById("sectionAdminDeduct");
+  if (s && s.innerHTML === "") {
+    s.innerHTML = `<h2>Admin: Déduire Coins/Ar</h2>
+      <div class="field"><label>Email</label><input type="email" id="deductEmail" /></div>
+      <div class="field"><label>Coins</label><input type="number" id="deductCoins" value="0" /></div>
+      <div class="field"><label>Ar</label><input type="number" id="deductAr" value="0" /></div>
+      <button class="submit-btn" onclick="adminDeduct()">Déduire</button>
+      <div id="deductMessage" class="message"></div>`;
+  }
+}
+function fillAdminBan() {
+  const s = document.getElementById("sectionAdminBan");
+  if (s && s.innerHTML === "") {
+    s.innerHTML = `<h2>Admin: Ban / Unban / Suspendre 10h</h2>
+      <div class="field"><label>Email</label><input type="email" id="banEmail" /></div>
+      <div class="field"><label>Action</label><select id="banAction"><option value="ban">Ban</option><option value="unban">Unban</option><option value="suspend">Suspendre 10h</option></select></div>
+      <button class="submit-btn" onclick="adminBan()">Appliquer</button>
+      <div id="banMessage" class="message"></div>`;
+  }
+}
+function fillAdminUsers() {
+  const s = document.getElementById("sectionAdminUsers");
+  if (s && s.innerHTML === "") {
+    s.innerHTML = `<h2>Admin: Liste utilisateurs</h2>
+      <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px;">
+        <input type="text" id="userSearch" placeholder="Recherche par email" style="flex:1;padding:8px;border-radius:8px;background:rgba(255,255,255,.9);" />
+        <button class="small-btn" onclick="usersPage=0;loadAdminUsers()">Chercher</button>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center;margin-bottom:4px;">
+        <button class="small-btn" onclick="if(usersPage>0){usersPage--;loadAdminUsers()}">Prev</button>
+        <button class="small-btn" onclick="usersPage++;loadAdminUsers()">Next</button>
+        <span style="font-size:12px;">Page: <span id="usersPageLabel">0</span></span>
+      </div>
+      <div id="adminUsersList" class="tasks-log"></div>
+      <div id="adminUsersMsg" class="message"></div>`;
+  }
+}
+function fillAdminDeposits() {
+  const s = document.getElementById("sectionAdminDeposits");
+  if (s && s.innerHTML === "") {
+    s.innerHTML = `<h2>Admin: Deposits pending</h2>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <button class="small-btn" onclick="adminDepPage=0; loadAdminDeposits()">Refresh</button>
+        <button class="small-btn" onclick="if(adminDepPage>0){adminDepPage--;loadAdminDeposits()}">Prev</button>
+        <button class="small-btn" onclick="adminDepPage++;loadAdminDeposits()">Next</button>
+        <span>Page: <span id="adminDepPageLabel">0</span></span>
+      </div>
+      <div id="adminDepositsList" class="tasks-log"></div>
+      <div id="adminDepositsMsg" class="message"></div>`;
+  }
+}
+function fillAdminWithdraws() {
+  const s = document.getElementById("sectionAdminWithdraws");
+  if (s && s.innerHTML === "") {
+    s.innerHTML = `<h2>Admin: Withdraws pending</h2>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <button class="small-btn" onclick="adminWdPage=0; loadAdminWithdraws()">Refresh</button>
+        <button class="small-btn" onclick="if(adminWdPage>0){adminWdPage--;loadAdminWithdraws()}">Prev</button>
+        <button class="small-btn" onclick="adminWdPage++;loadAdminWithdraws()">Next</button>
+        <span>Page: <span id="adminWdPageLabel">0</span></span>
+      </div>
+      <div id="adminWithdrawsList" class="tasks-log"></div>
+      <div id="adminWithdrawsMsg" class="message"></div>`;
+  }
+}
+function fillAdminVerifyAccounts() {
+  const s = document.getElementById("sectionAdminVerifyAccounts");
+  if (s && s.innerHTML === "") {
+    s.innerHTML = `<h2>Admin: Verify Accounts</h2>
+      <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px;">
+        <button class="small-btn" onclick="adminVerifyPage=0; loadAdminVerifyAccounts()">Refresh</button>
+        <button class="small-btn" onclick="if(adminVerifyPage>0){adminVerifyPage--;loadAdminVerifyAccounts()}">Prev</button>
+        <button class="small-btn" onclick="adminVerifyPage++;loadAdminVerifyAccounts()">Next</button>
+        <span style="font-size:12px;">Page: <span id="adminVerifyPageLabel">0</span></span>
+      </div>
+      <div id="adminVerifyList" class="tasks-log"></div>
+      <div id="adminVerifyMsg" class="message"></div>`;
+  }
 }
 
 function showAccountInfo() { hideAdminMenu(); if (!me) return; setMessage("dashboardMessage", `Email: ${sanitizeHTML(me.email)}<br>Coins: ${Number(me.balance_coins).toFixed(2)} — Ar: ${Math.floor(Number(me.balance_ar))}`, "success"); }
@@ -774,7 +823,7 @@ async function loadNextTask(){
       return;
     }
     currentTask = data;
-    const linkHtml = `<a class="link" href="${safeHref(data.link)}" target="_blank">${sanitizeHTML(data.link)}</a>`;
+    const linkHtml = `<a class="link" href="${safeHref(data.link)}" target="_blank" rel="noopener noreferrer">${sanitizeHTML(data.link)}</a>`;
     let taskTypeDisplay = String(data.task_type||"").toUpperCase();
     if (data.task_type === "like" && data.reaction_key) {
       const r = reactionMap[data.reaction_key.toLowerCase()];
@@ -861,7 +910,7 @@ async function loadNextShareTask() {
       return;
     }
     currentShareTask = data;
-    const linkHtml = `<a class="link" href="${safeHref(data.link)}" target="_blank">${sanitizeHTML(data.link)}</a>`;
+    const linkHtml = `<a class="link" href="${safeHref(data.link)}" target="_blank" rel="noopener noreferrer">${sanitizeHTML(data.link)}</a>`;
     document.getElementById("currentShareTaskInfo").innerHTML = `
       <div><strong>Type:</strong> SHARE</div>
       <div><strong>Lien du post à partager:</strong> ${linkHtml}</div>
@@ -961,7 +1010,7 @@ async function loadOrders(){
     list.innerHTML = items.map(o => {
       let typeDisplay = sanitizeHTML(o.task_type.toUpperCase());
       if (o.task_type === "like" && o.reaction_key) { const r = reactionMap[o.reaction_key.toLowerCase()]; if (r) typeDisplay = `${r.emoji} ${sanitizeHTML(r.label)}`; }
-      return `<div class="task-item"><div><b>${typeDisplay}</b> — <span class="meta">${sanitizeHTML(o.source)}</span><br><span class="meta">${o.success_count}/${o.target} — ${o.created_at}</span><br><a class="link" target="_blank" href="${safeHref(o.link)}">${sanitizeHTML(o.link)}</a></div></div>`;
+      return `<div class="task-item"><div><b>${typeDisplay}</b> — <span class="meta">${sanitizeHTML(o.source)}</span><br><span class="meta">${o.success_count}/${o.target} — ${o.created_at}</span><br><a class="link" target="_blank" rel="noopener noreferrer" href="${safeHref(o.link)}">${sanitizeHTML(o.link)}</a></div></div>`;
     }).join("");
     setMessage("ordersMsg","");
   } catch(e){ list.innerHTML = ""; setMessage("ordersMsg", sanitizeHTML(e.message), "error"); }
@@ -1010,7 +1059,7 @@ async function loadVerifyAccounts() {
       else if (status === "pending") statusHtml = '<span class="status-badge pending">en attente</span>';
       else if (status === "rejected") { statusHtml = '<span class="status-badge rejected">rejeté</span>'; buttonHtml = `<button class="small-btn" onclick="requestVerification('${a.id}')">Retry get verified</button>`; }
       else { statusHtml = '<span class="status-badge">non vérifié</span>'; buttonHtml = `<button class="small-btn" onclick="requestVerification('${a.id}')">Get Verified</button>`; }
-      return `<div class="account-item"><div style="flex:1;"><a class="link" href="${safeHref(a.profile_link)}" target="_blank">${sanitizeHTML(a.display_name || a.profile_link)}</a><br>${statusHtml}</div>${buttonHtml}</div>`;
+      return `<div class="account-item"><div style="flex:1;"><a class="link" href="${safeHref(a.profile_link)}" target="_blank" rel="noopener noreferrer">${sanitizeHTML(a.display_name || a.profile_link)}</a><br>${statusHtml}</div>${buttonHtml}</div>`;
     }).join("");
     setMessage("verifyMsg", "", "");
   } catch(e) { list.innerHTML = ""; setMessage("verifyMsg", sanitizeHTML(e.message), "error"); }
@@ -1061,7 +1110,7 @@ async function loadAdminDeposits(){ document.getElementById("adminDepPageLabel")
 async function handleDeposit(id, action){ try { await api("/admin/deposits/handle","POST",{request_id:id, action}); loadAdminDeposits(); } catch(e){ setMessage("adminDepositsMsg", sanitizeHTML(e.message), "error"); } }
 async function loadAdminWithdraws(){ document.getElementById("adminWdPageLabel").textContent = adminWdPage; const list = document.getElementById("adminWithdrawsList"); list.innerHTML = "Loading..."; try { const data = await api(`/admin/withdraws?status=pending&page=${adminWdPage}&page_size=30`,"GET"); const items = data.items || []; if (!items.length){ list.innerHTML = "<div>Empty</div>"; return; } list.innerHTML = items.map(x=>`<div class="task-item"><div style="width:100%;"><b>${sanitizeHTML(x.user_email)}</b> — ${x.amount_ar} Ar (${x.method}) ${sanitizeHTML(x.account)}<br><b>Destinataire:</b> ${sanitizeHTML(x.recipient_name||"")}<br><button class="small-btn" onclick="handleWithdraw('${x.id}','approve')">Approve</button> <button class="small-btn" onclick="handleWithdraw('${x.id}','reject')">Reject</button> <button class="small-btn" onclick="handleWithdraw('${x.id}','return')">Return</button></div></div>`).join(""); } catch(e){ list.innerHTML=""; setMessage("adminWithdrawsMsg", sanitizeHTML(e.message), "error"); } }
 async function handleWithdraw(id, action){ try { await api("/admin/withdraws/handle","POST",{request_id:id, action}); loadAdminWithdraws(); } catch(e){ setMessage("adminWithdrawsMsg", sanitizeHTML(e.message), "error"); } }
-async function loadAdminVerifyAccounts() { document.getElementById("adminVerifyPageLabel").textContent = adminVerifyPage; const list = document.getElementById("adminVerifyList"); list.innerHTML = "Loading..."; try { const data = await api(`/admin/verify_accounts?page=${adminVerifyPage}&page_size=50`, "GET"); const items = data.items || []; if (!items.length) { list.innerHTML = "<div>Aucune demande en attente.</div>"; return; } list.innerHTML = items.map(item => `<div class="task-item"><div style="flex:1;"><b>${sanitizeHTML(item.user_email)}</b><br><a class="link" href="${safeHref(item.profile_link)}" target="_blank">${sanitizeHTML(item.display_name || item.profile_link)}</a><div class="meta">ID: ${item.id}</div></div><div style="display:flex;gap:4px;"><button class="small-btn" onclick="handleAdminVerify('${item.id}','approve')">Approve</button><button class="small-btn" onclick="handleAdminVerify('${item.id}','reject')">Reject</button></div></div>`).join(""); setMessage("adminVerifyMsg", ""); } catch(e) { list.innerHTML = ""; setMessage("adminVerifyMsg", sanitizeHTML(e.message), "error"); } }
+async function loadAdminVerifyAccounts() { document.getElementById("adminVerifyPageLabel").textContent = adminVerifyPage; const list = document.getElementById("adminVerifyList"); list.innerHTML = "Loading..."; try { const data = await api(`/admin/verify_accounts?page=${adminVerifyPage}&page_size=50`, "GET"); const items = data.items || []; if (!items.length) { list.innerHTML = "<div>Aucune demande en attente.</div>"; return; } list.innerHTML = items.map(item => `<div class="task-item"><div style="flex:1;"><b>${sanitizeHTML(item.user_email)}</b><br><a class="link" href="${safeHref(item.profile_link)}" target="_blank" rel="noopener noreferrer">${sanitizeHTML(item.display_name || item.profile_link)}</a><div class="meta">ID: ${item.id}</div></div><div style="display:flex;gap:4px;"><button class="small-btn" onclick="handleAdminVerify('${item.id}','approve')">Approve</button><button class="small-btn" onclick="handleAdminVerify('${item.id}','reject')">Reject</button></div></div>`).join(""); setMessage("adminVerifyMsg", ""); } catch(e) { list.innerHTML = ""; setMessage("adminVerifyMsg", sanitizeHTML(e.message), "error"); } }
 async function handleAdminVerify(accountId, action) { try { await api("/admin/verify_accounts/handle", "POST", { account_id: accountId, action }); setMessage("adminVerifyMsg", action === "approve" ? "Approuvé, 10 Ar crédités." : "Rejeté.", "success"); loadAdminVerifyAccounts(); } catch(e) { setMessage("adminVerifyMsg", sanitizeHTML(e.message), "error"); } }
 
 window.addEventListener("load", () => {
